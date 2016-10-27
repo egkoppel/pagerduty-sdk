@@ -20,6 +20,7 @@ class Pagerduty
       attribute :last_status_change_by, LastStatusChangeBy
       attribute :number_of_escalations
       attribute :resolved_by_user, ResolvedByUser
+      attribute :urgency
     end
 
   end
