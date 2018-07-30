@@ -35,7 +35,7 @@ class Pagerduty
 
     def delete
       res = curl({
-        uri: "https://api.pagerduty.com/users/#{self.id}",
+        uri: "https://#@@subdomain.pagerduty.com/api/v1/users/#{self.id}",
         method: 'DELETE',
         raw_response: true
       })
@@ -45,15 +45,13 @@ class Pagerduty
 
     def save
       saved_user = User.new(curl({
-        uri: "https://api.pagerduty.com/users/#{self.id}",
-        data: {payload => "{
-          'user':{
-          'role': '#{self.role}',
-          'name': '#{self.name}',
-          'email': '#{self.email}',
-          'time_zone': '#{self.time_zone}'
-          }
-        }"},
+        uri: "https://#@@subdomain.pagerduty.com/api/v1/users/#{self.id}",
+        data: {
+          role: self.role,
+          name: self.name,
+          email: self.email,
+          time_zone: self.time_zone
+        },
         method: 'PUT'
       })['user'])
 

@@ -41,7 +41,7 @@ class Pagerduty
         end
 
         Pagerduty::Alerts.new(curl({
-          uri: "https://api.pagerduty.com/notifications",
+          uri: "https://#{Pagerduty.class_variable_get(:@@subdomain)}.pagerduty.com/api/v1/alerts",
           params: options,
             method: 'GET'
         }))

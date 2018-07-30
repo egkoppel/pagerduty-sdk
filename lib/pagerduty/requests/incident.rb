@@ -68,29 +68,10 @@ class Pagerduty
       end
 
       def reassign(options={})
-        curl_with_headers({
-          uri: "https://api.pagerduty.com/incidents",
-          data: { 'payload' => "{
-            'incidents': [
-              {
-                'id':'#{self.id}',
-                'assignments':[
-                  {
-                    'assignee': {
-                      'id': '#{self.assigned_to_user.id}'
-                    }
-                  }
-                ]
-              }
-            ]
-          }" },
+        curl({
+          uri: "https://#@@subdomain.pagerduty.com/api/v1/incidents/#{self.id}/resolve",
+          data: { 'requester_id' => self.assigned_to_user.id, }.merge(options),
           method: 'PUT'
-        },
-        {
-          "Content-Type" => "application/json",
-          "Authorization" => "Token token=#{Pagerduty.class_variable_get(:@@token)}",
-          "Accept" => "application/vnd.pagerduty+json;version=2",
-          "From" => self.assigned_to_user.email
         })
       end
       
