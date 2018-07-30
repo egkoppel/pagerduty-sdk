@@ -71,6 +71,7 @@ end
 
 class EscalationPolicy < Pagerduty
   include Virtus.model
+  include json
 
   attribute :id
   attribute :name
@@ -86,7 +87,7 @@ class EscalationPolicy < Pagerduty
 
     saved_policy = EscalationPolicy.new(JSON.parse(curl({
       uri: "https://api.pagerduty.com/escalation_policies/#{self.id}",
-      data: { escalation_policy: self.attributes },
+      data: {escalation_policy => "{'escalation_policy': '#{self.attributes.to_json}'}"},
       method: 'PUT'
     }).body)['escalation_policy'])
 

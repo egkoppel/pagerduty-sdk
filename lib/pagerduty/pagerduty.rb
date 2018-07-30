@@ -2,6 +2,7 @@
 class Pagerduty
 
   include Pagerduty::Core
+  include json
 
   attr_reader :token
   attr_reader :subdomain
@@ -63,7 +64,7 @@ class Pagerduty
     end
 
     Alerts.new(curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/alerts",
+      uri: "https://api.pagerduty.com/notifications",
       params: options,
       method: 'GET'
     }))
@@ -73,7 +74,7 @@ class Pagerduty
   #
   # ==== Parameters
   # * params<~Hash>
-  #   * 'query'<~String> - Filters the result, showing only the escalation policies whose names match the query.
+  #   * 'query'<~String> - In HTTP query format. Filters the result, showing only the escalation policies whose names match the query.
   #   * 'include'<~Array> - An array of extra data to include with the escalation policies.
   #
   # ==== Returns
@@ -113,8 +114,7 @@ class Pagerduty
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/escalation_policies/list]
   def escalation_policies(options={})
     curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/escalation_policies",
-      params: { 'query' => options[:query] },
+      uri: "https://api.pagerduty.com/escalation_policies?#{options[:query]}",
       method: 'GET'
     })['escalation_policies'].inject([]) { |policies, policy|
       policies << EscalationPolicy.new(policy)
@@ -171,7 +171,7 @@ class Pagerduty
     end
 
     EscalationPolicy.new(curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/escalation_policies",
+      uri: "https://api.pagerduty.com/escalation_policies",
       data: options,
       method: 'POST'
     })['escalation_policy'])
@@ -217,7 +217,7 @@ class Pagerduty
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/escalation_policies/show]
   def get_escalation_policy(options={})
     EscalationPolicy.new(curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/escalation_policies/#{options[:id]}",
+      uri: "https://api.pagerduty.com/escalation_policies/#{options[:id]}",
       method: 'GET'
     })['escalation_policy'])
   end
@@ -244,10 +244,10 @@ class Pagerduty
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/escalation_policies/escalation_rules/list]
   def escalation_rules(options)
     curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/escalation_policies/#{options[:escalation_policy_id]}/escalation_rules",
+      uri: "https://api.pagerduty.com/escalation_policies/#{options[:escalation_policy_id]}",
       params: { 'query' => options[:query] },
       method: 'GET'
-    })['escalation_rules'].inject([]) { |rules, rule|
+    })['escalation_policy']['escalation_rules'].inject([]) { |rules, rule|
       rules << EscalationRule.new(rule)
     }
   end
@@ -493,8 +493,8 @@ class Pagerduty
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/users/create]
   def create_user(options={})
     User.new(curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/users",
-      data: options,
+      uri: "https://api.pagerduty.com/users",
+      data: {user => "{'user':#{options.to_json}}"},
       method: 'POST'
     })['user'])
   end
@@ -529,7 +529,7 @@ class Pagerduty
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/incidents/notes/list]
   def notes(id)
     Notes.new(curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/incidents/#{id}/notes",
+      uri: "https://api.pagerduty.com/incidents/#{id}/notes",
       method: 'GET'
     }))
   end
@@ -706,7 +706,7 @@ class Pagerduty
   #
   # ==== Parameters
   # * options<~Hash>
-  #   * 'query'<~String> - Filters the results, showing only the maintenance windows whose descriptions contain the query
+  #   * 'query'<~String> - In HTTP query format. Filters the results, showing only the maintenance windows whose descriptions contain the query
   #   * 'service_ids'<~Array> - An array of service IDs, specifying services whose maintenance windows shall be returned
   #   * 'filter'<~String> - Only return maintenance windows that are of this type. Possible values are past, future, ongoing. If this parameter is omitted, all maintenance windows will be returned
   #
@@ -753,8 +753,7 @@ class Pagerduty
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/maintenance_windows/list]
   def get_maintenance_windows(options={})
     Pagerduty::MaintenanceWindows.new(curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/maintenance_windows",
-      params: options,
+      uri: "https://api.pagerduty.com/maintenance_windows?service_ids[]=#{options.service_ids}&filter=#{options.filter}&#{options.query}",
       method: 'GET'
     }))
   end
@@ -796,7 +795,7 @@ class Pagerduty
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/maintenance_windows/show]
   def get_maintenance_window(options={})
     Pagerduty::MaintenanceWindow.new(curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/maintenance_windows/#{options[:id]}",
+      uri: "https://api.pagerduty.com/api/v1/maintenance_windows/#{options[:id]}",
       params: options,
       method: 'GET'
     })['maintenance_window'])
@@ -844,8 +843,8 @@ class Pagerduty
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/maintenance_windows/create]
   def create_maintenance_window(options={})
     Pagerduty::MaintenanceWindow.new(curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/maintenance_windows",
-      data: options,
+      uri: "https://api.pagerduty.com/maintenance_windows",
+      data: {maintenance_window => "{'maintenance_window':'#{options.to_json}''}"},
       method: 'POST'
     })['maintenance_window'])
   end
@@ -948,8 +947,7 @@ class Pagerduty
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/schedules/show]
   def get_schedule(options={})
     Pagerduty::ScheduleInfo.new(curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/schedules/#{options[:id]}",
-      params: options,
+      uri: "https://api.pagerduty.com/schedules/#{options[:id]}?since=#{options[:since]}&until=#{options[:until]}&time_zone=#{options[:time_zone]}",
       method: 'GET'
      })['schedule'])
   end
@@ -1051,7 +1049,7 @@ class Pagerduty
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/services/list]
   def get_services(options={})
     Pagerduty::Services.new(curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/services",
+      uri: "https://api.pagerduty.com/services?time_zone=#{options[:time_zone]}&include[]=#{options[:include]}&",
       params: options,
       method: 'GET'
     }))
@@ -1090,8 +1088,7 @@ class Pagerduty
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/services/show]
   def get_service(options={})
     Pagerduty::Services::Objects::Service.new(curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/services/#{options[:id]}",
-      params: options,
+      uri: "https://api.pagerduty.com/services/#{options[:id]}?include[]=#{options[:include]}",
       method: 'GET'
     })['service'])
   end
@@ -1135,8 +1132,8 @@ class Pagerduty
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/services/create]
   def create_service(options={})
     Pagerduty::Services::Objects::Service.new(curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/services",
-      data: { service: options },
+      uri: "https://api.pagerduty.com/services",
+      data: { payload: "{'service':'#{options.to_json}'}" },
       method: 'POST'
     })['service'])
   end

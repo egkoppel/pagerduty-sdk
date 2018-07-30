@@ -28,7 +28,7 @@ class Pagerduty
     def save(options={})
       Pagerduty::MaintenanceWindow.new(JSON.parse(curl({
         uri: "https://#@@subdomain.pagerduty.com/api/v1/maintenance_windows/#{self.id}",
-        data: {"{
+        data: {maintenance_window => "{
           'maintenance_window': {
             'start_time': '#{self.start_time}',
             'end_time: '#{self.end_time}',
