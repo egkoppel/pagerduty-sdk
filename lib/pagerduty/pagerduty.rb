@@ -881,7 +881,7 @@ class Pagerduty
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/schedules/list]
   def get_schedules(options={})
     Pagerduty::Schedules.new(curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/schedules",
+      uri: "https://api.pagerduty.com/schedules",
       params: options,
       method: 'GET'
     }))
