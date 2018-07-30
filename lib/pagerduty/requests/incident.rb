@@ -27,9 +27,20 @@ class Pagerduty
 
       def acknowledge
         curl({
-          uri: "https://#@@subdomain.pagerduty.com/api/v1/incidents/#{self.id}/acknowledge",
-          data: { 'requester_id' => self.assigned_to_user.id },
+          uri: "https://api.pagerduty.com/incidents/",
+          data: {
+            'payload' => "{
+              'incidents': [
+                {
+                  'id': '#{self.id}',
+                  'status': 'acknowledged'
+                }
+              ]
+            }"
+          },
           method: 'PUT'
+        }, {
+          "from" => self.assigned_to_user.email
         })
       end
 
