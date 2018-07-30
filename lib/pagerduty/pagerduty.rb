@@ -336,7 +336,7 @@ class Pagerduty
         :until => options[:until] || "",
       },
       method: 'GET'
-    }).incidents)
+    }))
   end
 
 
