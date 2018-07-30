@@ -28,19 +28,21 @@ class Pagerduty
     def save(options={})
       Pagerduty::MaintenanceWindow.new(JSON.parse(curl({
         uri: "https://#@@subdomain.pagerduty.com/api/v1/maintenance_windows/#{self.id}",
-        data: {
-          start_time: self.start_time,
-          end_time: self.end_time,
-          description: self.description,
-          service_ids: self.service_ids
-        },
+        data: {"{
+          'maintenance_window': {
+            'start_time': '#{self.start_time}',
+            'end_time: '#{self.end_time}',
+            'description': '#{self.description}',
+            'service_ids': '#{self.service_ids}'
+          }
+        }"},
         method: 'PUT'
       }).body)['maintenance_window'])
     end
 
     def delete
       res = curl({
-        uri: "https://#@@subdomain.pagerduty.com/api/v1/maintenance_windows/#{self.id}",
+        uri: "https://api.pagerduty.com/maintenance_windows/#{self.id}",
         method: 'DELETE'
       })
 
