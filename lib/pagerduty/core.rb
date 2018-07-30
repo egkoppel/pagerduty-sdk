@@ -27,6 +27,7 @@ class Pagerduty
         headers: {
           "Content-Type" => "application/json",
           "Authorization" => "Token token=#{Pagerduty.class_variable_get(:@@token)}",
+          "Accept" => "application/vnd.pagerduty+json;version=2"
         },
       }
 
