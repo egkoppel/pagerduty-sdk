@@ -980,10 +980,10 @@ class Pagerduty
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/schedules/users]
   def get_schedule_users(options={})
     Users.new(curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/schedules/#{options[:id]}/users",
+      uri: "https://api.pagerduty.com/schedules/#{options[:id]}/",
       params: options,
       method: 'GET'
-    })).users
+    })).schedule.users
   end
 
   # Create an override for a specific user covering the specified time range. If you create an override on top of an existing one, the last created override will have priority.
