@@ -20,7 +20,7 @@ class Pagerduty
 
       def notes
         Notes.new(curl({
-          uri: "https://#@@subdomain.pagerduty.com/api/v1/incidents/#{self.id}/notes",
+          uri: "https://api.pagerduty.com/incidents/#{self.id}/notes",
           method: 'GET'
         }))
       end
