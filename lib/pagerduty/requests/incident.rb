@@ -27,39 +27,17 @@ class Pagerduty
 
       def acknowledge
         curl({
-          uri: "https://api.pagerduty.com/incidents/",
-          data: {
-            'payload' => "{
-              'incidents': [
-                {
-                  'id': '#{self.id}',
-                  'status': 'acknowledged'
-                }
-              ]
-            }"
-          },
+          uri: "https://#@@subdomain.pagerduty.com/api/v1/incidents/#{self.id}/acknowledge",
+          data: { 'requester_id' => self.assigned_to_user.id },
           method: 'PUT'
-        }, {
-          "from" => self.assigned_to_user.email
         })
       end
 
       def resolve
         curl({
-          uri: "https://api.pagerduty.com/incidents/",
-          data: {
-            'payload' => "{
-              'incidents': [
-                {
-                  'id': '#{self.id}',
-                  'status': 'resolved'
-                }
-              ]
-            }"
-          },
+          uri: "https://#@@subdomain.pagerduty.com/api/v1/incidents/#{self.id}/resolve",
+          data: { 'requester_id' => self.assigned_to_user.id },
           method: 'PUT'
-        }, {
-          "from" => self.assigned_to_user.email
         })
       end
 

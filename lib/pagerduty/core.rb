@@ -20,7 +20,7 @@ class Pagerduty
     #
     # Returns: <String>
     ###################################################################################
-    def curl(options, headers)
+    def curl(options)
 
       curl_request = {
         ssl: true,
@@ -29,7 +29,7 @@ class Pagerduty
           "Content-Type" => "application/json",
           "Authorization" => "Token token=#{Pagerduty.class_variable_get(:@@token)}",
           "Accept" => "application/vnd.pagerduty+json;version=2"
-        }.merge(headers || {}),
+        },
       }
 
       options.merge! curl_request
