@@ -51,7 +51,7 @@ class EscalationRule < Pagerduty
 
   def delete
     res = curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/escalation_policies/#{parent_policy.id}/escalation_rules/#{self.id}",
+      uri: "https://api.pagerduty.com/escalation_policies/#{parent_policy.id}/escalation_rules/#{self.id}",
       method: 'DELETE',
       raw_response: true
     })
@@ -85,7 +85,7 @@ class EscalationPolicy < Pagerduty
     }
 
     saved_policy = EscalationPolicy.new(JSON.parse(curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/escalation_policies/#{self.id}",
+      uri: "https://api.pagerduty.com/escalation_policies/#{self.id}",
       data: { escalation_policy: self.attributes },
       method: 'PUT'
     }).body)['escalation_policy'])
@@ -95,7 +95,7 @@ class EscalationPolicy < Pagerduty
 
   def delete
     res = curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/escalation_policies/#{self.id}",
+      uri: "https://api.pagerduty.com/escalation_policies/#{self.id}",
       method: 'DELETE',
       raw_response: true
     })
