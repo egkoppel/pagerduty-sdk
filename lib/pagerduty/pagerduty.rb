@@ -332,7 +332,7 @@ class Pagerduty
     Pagerduty::Incidents.new(curl({
       uri: "https://api.pagerduty.com/incidents",
       params: {
-        since: options[:since] || (Time.now - 1.day).strftime("%Y-%m-%d"),
+        since: options[:since] || (Time.now - 1000.day).strftime("%Y-%m-%d"),
         :until => options[:until] || (Time.now + 1.day).strftime("%Y-%m-%d"),
       },
       method: 'GET'
