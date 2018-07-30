@@ -336,7 +336,7 @@ class Pagerduty
         :until => options[:until] || "",
       },
       method: 'GET'
-    }).incidents)
+    })['incidents'])
   end
 
 
@@ -442,7 +442,7 @@ class Pagerduty
     Users.new(curl({
       uri: "https://api.pagerduty.com/users?#{options}",
       method: 'GET'
-    }))
+    })['users'])
   end
 
   # Get information about an existing user.
@@ -529,9 +529,9 @@ class Pagerduty
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/incidents/notes/list]
   def notes(id)
     Notes.new(curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/incidents/#{id}/notes",
+      uri: "https://api.pagerduty.com/incidents/#{id}/notes",
       method: 'GET'
-    }))
+    })['notes'])
   end
 
 
@@ -883,7 +883,7 @@ class Pagerduty
       uri: "https://api.pagerduty.com/schedules",
       params: options,
       method: 'GET'
-    }))
+    })['schedules'])
   end
 
   # Show detailed information about a schedule, including entries for each layer and sub-schedule
