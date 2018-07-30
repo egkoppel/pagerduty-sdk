@@ -46,9 +46,20 @@ class Pagerduty
 
       def resolve
         curl({
-          uri: "https://#@@subdomain.pagerduty.com/api/v1/incidents/#{self.id}/resolve",
-          data: { 'requester_id' => self.assigned_to_user.id },
+          uri: "https://api.pagerduty.com/incidents/",
+          data: {
+            'payload' => "{
+              'incidents': [
+                {
+                  'id': '#{self.id}',
+                  'status': 'resolved'
+                }
+              ]
+            }"
+          },
           method: 'PUT'
+        }, {
+          "from" => self.assigned_to_user.email
         })
       end
 
