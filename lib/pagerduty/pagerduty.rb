@@ -438,10 +438,9 @@ class Pagerduty
   # * 'total'<~Integer>
   #
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/users/list]
-  def get_users(options={})
+  def get_users(options="")
     Users.new(curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/users",
-      params: options,
+      uri: "https://api.pagerduty.com/users?#{options}",
       method: 'GET'
     }))
   end
