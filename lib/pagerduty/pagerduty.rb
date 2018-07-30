@@ -1010,7 +1010,7 @@ class Pagerduty
   # {Pagerduty API Reference}[https://developer.pagerduty.com/documentation/rest/schedules/overrides/create]
   def create_schedule_override(options={})
     Pagerduty::Schedules::Overrides::Override.new(curl({
-      uri: "https://#@@subdomain.pagerduty.com/api/v1/schedules/#{options[:id]}/overrides",
+      uri: "https://api.pagerduty.com/schedules/#{options[:id]}/overrides",
       data: options.except(:id),
       method: 'POST'
     })['override'])
