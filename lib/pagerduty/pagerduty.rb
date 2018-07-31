@@ -334,7 +334,7 @@ class Pagerduty
     incidents = []
     while more == true do
       incident = Pagerduty::Incidents.new(curl({
-        uri: "https://api.pagerduty.com/incidents?time_zone=UTC?since=#{options[:since] || (Time.now - 1.day).strftime("%Y-%m-%d")}&until=#{options[:until] || (Time.now + 1.day).strftime("%Y-%m-%d")}&limit=100&offset=#{offset}&statuses%5B%5D=triggered&statuses%5B%5D=acknowledged",
+        uri: "https://api.pagerduty.com/incidents?time_zone=UTC&since=#{options[:since] || (Time.now - 1.day).strftime("%Y-%m-%d")}&until=#{options[:until] || (Time.now + 1.day).strftime("%Y-%m-%d")}&limit=100&offset=#{offset}",
         params: {
           since: options[:since] || "",
           :until => options[:until] || "",
