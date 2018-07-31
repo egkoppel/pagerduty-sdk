@@ -989,6 +989,7 @@ class Pagerduty
   #
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/schedules/users]
   def get_schedule_users(options={})
+    print("getting oncall users for #{options[:id]}")
     Users.new(curl({
       uri: "https://api.pagerduty.com/schedules/#{options[:id]}/",
       method: 'GET'
