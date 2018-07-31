@@ -996,7 +996,7 @@ class Pagerduty
     })
     print("schedule lookup result #{result}")
     print("schedule lookup users #{result['schedule']['users']}")
-    Users.new(result[:schedule])
+    Users.new(result['schedule'])
   end
 
   # Create an override for a specific user covering the specified time range. If you create an override on top of an existing one, the last created override will have priority.
