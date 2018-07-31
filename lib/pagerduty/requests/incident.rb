@@ -26,7 +26,7 @@ class Pagerduty
       end
 
       def acknowledge
-        curl_with_headers({
+        curl({
           uri: "https://api.pagerduty.com/incidents",
           data: { 'payload' => "{
             'incidents': [
@@ -37,33 +37,27 @@ class Pagerduty
             ]
           }" },
           method: 'PUT'
-        },
-        {
-          "Content-Type" => "application/json",
-          "Authorization" => "Token token=#{Pagerduty.class_variable_get(:@@token)}",
-          "Accept" => "application/vnd.pagerduty+json;version=2",
-          #"From" => self.assigned_to_user.email
         })
       end
 
       def resolve
         curl_with_headers({
           uri: "https://api.pagerduty.com/incidents",
-          data: { 'payload' => "{
+          body: "{
             'incidents': [
               {
                 'id':'#{self.id}',
                 'status':'resolved'
               }
             ]
-          }" },
+          }",
           method: 'PUT'
         },
         {
           "Content-Type" => "application/json",
           "Authorization" => "Token token=#{Pagerduty.class_variable_get(:@@token)}",
           "Accept" => "application/vnd.pagerduty+json;version=2",
-          #"From" => self.assigned_to_user.email
+          "From" => "egluschovekoppel1@gmail.com"
         })
       end
 
