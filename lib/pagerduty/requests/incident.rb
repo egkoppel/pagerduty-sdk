@@ -42,7 +42,7 @@ class Pagerduty
           "Content-Type" => "application/json",
           "Authorization" => "Token token=#{Pagerduty.class_variable_get(:@@token)}",
           "Accept" => "application/vnd.pagerduty+json;version=2",
-          "From" => self.assigned_to_user.email
+          #"From" => self.assigned_to_user.email
         })
       end
 
@@ -63,7 +63,7 @@ class Pagerduty
           "Content-Type" => "application/json",
           "Authorization" => "Token token=#{Pagerduty.class_variable_get(:@@token)}",
           "Accept" => "application/vnd.pagerduty+json;version=2",
-          "From" => self.assigned_to_user.email
+          #"From" => self.assigned_to_user.email
         })
       end
 
