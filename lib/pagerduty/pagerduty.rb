@@ -346,7 +346,7 @@ class Pagerduty
       print(offset)
     end
     print(incidents)
-    incidents
+    {"incidents" => incidents}
   end
 
 
