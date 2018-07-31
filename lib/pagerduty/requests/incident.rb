@@ -42,8 +42,7 @@ class Pagerduty
         {
           "Content-Type" => "application/json",
           "Authorization" => "Token token=#{Pagerduty.class_variable_get(:@@token)}",
-          "Accept" => "application/vnd.pagerduty+json;version=2",
-          "From" => "egluschovekoppel1@gmail.com"
+          "Accept" => "application/vnd.pagerduty+json;version=2"
         })
       end
 
@@ -65,8 +64,7 @@ class Pagerduty
         {
           "Content-Type" => "application/json",
           "Authorization" => "Token token=#{Pagerduty.class_variable_get(:@@token)}",
-          "Accept" => "application/vnd.pagerduty+json;version=2",
-          "From" => "egluschovekoppel1@gmail.com"
+          "Accept" => "application/vnd.pagerduty+json;version=2"
         })
       end
 
