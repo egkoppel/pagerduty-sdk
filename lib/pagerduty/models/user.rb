@@ -3,16 +3,9 @@ class Pagerduty
     include Virtus.model
 
     attribute :id
-    attribute :name
-    attribute :email
-    attribute :time_zone
-    attribute :color
-    attribute :role
-    attribute :avatar_url
-    attribute :user_url
-    attribute :invitation_sent
-    attribute :marketing
-    attribute :marketing_opt_out
+    attribute :summary
+    attribute :self
+    attribute :html_url
     attribute :type, String, default: 'user'
 
     #def inspect
@@ -47,18 +40,18 @@ class Pagerduty
       saved_user = User.new(curl({
         uri: "https://#@@subdomain.pagerduty.com/api/v1/users/#{self.id}",
         data: {
-          role: self.role,
-          name: self.name,
-          email: self.email,
-          time_zone: self.time_zone
+          #role: self.role,
+          #name: self.name,
+          #email: self.email,
+          #time_zone: self.time_zone
         },
         method: 'PUT'
       })['user'])
 
-      self.role = saved_user.role
-      self.name = saved_user.name
-      self.email = saved_user.email
-      self.time_zone = saved_user.time_zone
+      #self.role = saved_user.role
+      #self.name = saved_user.name
+      #self.email = saved_user.email
+      #self.time_zone = saved_user.time_zone
       self
     end
   end
