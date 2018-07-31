@@ -995,6 +995,7 @@ class Pagerduty
       method: 'GET'
     })
     print("schedule lookup result #{result}")
+    print("schedule lookup users #{result['schedule']['users']}")
     Users.new(result[:schedule])
   end
 
