@@ -8,7 +8,7 @@ class Pagerduty
       attribute :incident_number
       attribute :created_at
       attribute :status
-      attribuet :summary
+      attribute :summary
       attribute :html_url
       attribute :incident_key
       attribute :service, Service
