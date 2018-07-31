@@ -347,6 +347,7 @@ class Pagerduty
       more = incident[:more]
       print("more #{more}")
       offset += incident.incidents.count
+      print(offset)
     end
     print(incidents)
     incidents
