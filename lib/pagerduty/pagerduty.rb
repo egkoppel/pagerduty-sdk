@@ -331,7 +331,7 @@ class Pagerduty
 
     more = true
     incidents = []
-    while more do
+    while more == true do
       incident = Pagerduty::Incidents.new(curl({
         uri: "https://api.pagerduty.com/incidents?time_zone=UTC?since=#{options[:since] || (Time.now - 1.day).strftime("%Y-%m-%d")}&until=#{options[:until] || (Time.now + 1.day).strftime("%Y-%m-%d")}&limit=100",
         params: {
@@ -341,6 +341,8 @@ class Pagerduty
         method: 'GET'
       }))
       incidents = incidents + incident[:incidents]
+      print("all incidents #{incidents}")
+      print("incident #{incident}")
       more = incident[:more]
       print("more #{more}")
     end
