@@ -345,8 +345,8 @@ class Pagerduty
       offset += incident.incidents.count
       print(offset)
     end
-    print("final incident list #{{"incidents" => incidents}}")
-    {"incidents" => incidents}
+    print("final incident list #{{incidents:incidents}}")
+    {incidents:incidents}
   end
 
 
