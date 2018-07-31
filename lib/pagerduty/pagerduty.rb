@@ -330,10 +330,11 @@ class Pagerduty
   def incidents(options={})
 
     more = true
+    offset = 0
     incidents = []
     while more == true do
       incident = Pagerduty::Incidents.new(curl({
-        uri: "https://api.pagerduty.com/incidents?time_zone=UTC?since=#{options[:since] || (Time.now - 1.day).strftime("%Y-%m-%d")}&until=#{options[:until] || (Time.now + 1.day).strftime("%Y-%m-%d")}&limit=100",
+        uri: "https://api.pagerduty.com/incidents?time_zone=UTC?since=#{options[:since] || (Time.now - 1.day).strftime("%Y-%m-%d")}&until=#{options[:until] || (Time.now + 1.day).strftime("%Y-%m-%d")}&limit=100&offset=#{offset}",
         params: {
           since: options[:since] || "",
           :until => options[:until] || "",
@@ -345,6 +346,7 @@ class Pagerduty
       print("incident #{incident}")
       more = incident[:more]
       print("more #{more}")
+      offset += incident.incidents.count
     end
     print(incidents)
     incidents
