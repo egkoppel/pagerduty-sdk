@@ -329,28 +329,36 @@ class Pagerduty
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/incidents/list]
   def incidents(options={})
 
-    more = true
-    offset = 0
-    incidents = []
-    while more == true do
-      incident = Pagerduty::Incidents.new(curl({
-        uri: "https://api.pagerduty.com/incidents?since=#{options[:since] || (Time.now - 1.day).strftime("%Y-%m-%d")}&until=#{options[:until] || (Time.now + 1.day).strftime("%Y-%m-%d")}&statuses%5B%5D=triggered&statuses%5B%5D=acknowledged&time_zone=UTC&offset=#{offset}",
-        params: {
-          since: options[:since] || "",
-          :until => options[:until] || "",
-        },
-        method: 'GET'
-      }))
-      incidents = incidents + incident[:incidents]
-      print("all incidents #{incidents}")
-      print("incident #{incident}")
-      more = incident[:more]
-      print("more #{more}")
-      offset += incident.incidents.count
-      print(offset)
-    end
-    print(incidents)
-    incidents
+    # more = true
+    # offset = 0
+    # incidents = []
+    # while more == true do
+    #   incident = Pagerduty::Incidents.new(curl({
+    #     uri: "https://api.pagerduty.com/incidents?since=#{options[:since] || (Time.now - 1.day).strftime("%Y-%m-%d")}&until=#{options[:until] || (Time.now + 1.day).strftime("%Y-%m-%d")}&statuses%5B%5D=triggered&statuses%5B%5D=acknowledged&time_zone=UTC&offset=#{offset}",
+    #     params: {
+    #       since: options[:since] || "",
+    #       :until => options[:until] || "",
+    #     },
+    #     method: 'GET'
+    #   }))
+    #   incidents = incidents + incident[:incidents]
+    #   print("all incidents #{incidents}")
+    #   print("incident #{incident}")
+    #   more = incident[:more]
+    #   print("more #{more}")
+    #   offset += incident.incidents.count
+    #   print(offset)
+    # end
+    # print(incidents)
+    # incidents
+    Pagerduty::Incidents.new(curl({
+          uri: "https://api.pagerduty.com/incidents?since=2018-07-30&until=2018-08-01&statuses%5B%5D=triggered&statuses%5B%5D=acknowledged&time_zone=UTC",
+          params: {
+            since: options[:since] || "",
+            :until => options[:until] || "",
+          },
+          method: 'GET'
+        }))
   end
 
 
