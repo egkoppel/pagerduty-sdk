@@ -41,6 +41,7 @@ class Pagerduty
       end
 
       def resolve
+        print("resolving")
         curl_with_headers({
           uri: "https://api.pagerduty.com/incidents",
           body: "{
