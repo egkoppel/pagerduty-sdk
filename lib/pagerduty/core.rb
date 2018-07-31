@@ -85,7 +85,7 @@ class Pagerduty
       #else
         #{ 'code' => response.code, 'message' => response.message }
       #end
-      response.body
+      JSON.parse(response.body)
     end
 
     def curl_with_headers(options, headers)
