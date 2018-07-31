@@ -77,6 +77,7 @@ class Pagerduty
                    http.request(request)
                  end
 
+      print("response code #{response.code}, body: #{response.body}")
       if options[:raw_response] == true
         response
       elsif response.body
