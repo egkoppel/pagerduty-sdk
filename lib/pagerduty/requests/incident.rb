@@ -25,7 +25,7 @@ class Pagerduty
         }))
       end
 
-      def acknowledge
+      def acknowledge(email)
         curl_with_headers({
           uri: "https://api.pagerduty.com/incidents",
           data: {
@@ -42,11 +42,12 @@ class Pagerduty
         {
           "Content-Type" => "application/json",
           "Authorization" => "Token token=#{Pagerduty.class_variable_get(:@@token)}",
-          "Accept" => "application/vnd.pagerduty+json;version=2"
+          "Accept" => "application/vnd.pagerduty+json;version=2",
+          "From" => email
         })
       end
 
-      def resolve
+      def resolve(email)
         print("resolving")
         curl_with_headers({
           uri: "https://api.pagerduty.com/incidents",
@@ -64,7 +65,8 @@ class Pagerduty
         {
           "Content-Type" => "application/json",
           "Authorization" => "Token token=#{Pagerduty.class_variable_get(:@@token)}",
-          "Accept" => "application/vnd.pagerduty+json;version=2"
+          "Accept" => "application/vnd.pagerduty+json;version=2",
+          "From" => email
         })
       end
 
