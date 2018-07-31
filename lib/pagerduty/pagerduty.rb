@@ -330,7 +330,7 @@ class Pagerduty
   def incidents(options={})
 
     Pagerduty::Incidents.new(curl({
-      uri: "https://api.pagerduty.com/incidents",
+      uri: "https://api.pagerduty.com/incidents?time_zone=UTC",
       params: {
         since: options[:since] || "",
         :until => options[:until] || "",

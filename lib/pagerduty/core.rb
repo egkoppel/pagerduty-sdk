@@ -36,6 +36,8 @@ class Pagerduty
 
       url = URI.parse(options[:uri])
 
+      print("making request to #{url} with headers #{curl_request[:headers]}")
+
       if options[:params]
         parameters = options[:params].map { |k,v| v.to_query(k) }.join("&")
         url += "?#{parameters}"
