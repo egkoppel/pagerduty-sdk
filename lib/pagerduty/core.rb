@@ -85,6 +85,7 @@ class Pagerduty
       #else
         #{ 'code' => response.code, 'message' => response.message }
       #end
+      print("parsed response #{JSON.parse(response.body)}")
       JSON.parse(response.body)
     end
 
