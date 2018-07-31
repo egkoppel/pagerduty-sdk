@@ -389,7 +389,7 @@ class Pagerduty
   #
   # {Pagerduty API Reference}[http://developer.pagerduty.com/documentation/rest/incidents/show]
   def get_incident(options={})
-    incidents.incidents.detect { |incident|
+    incidents[:incidents].detect { |incident|
       incident.id == options[:id] || incident.incident_number == options[:id]
     } || 'No results'
   end
