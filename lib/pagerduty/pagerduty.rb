@@ -353,10 +353,6 @@ class Pagerduty
     # incidents
     Pagerduty::Incidents.new(curl({
           uri: "https://api.pagerduty.com/incidents?since=2018-07-30&until=2018-08-01&statuses[]=triggered&statuses[]=acknowledged&time_zone=UTC",
-          params: {
-            since: options[:since] || "",
-            :until => options[:until] || "",
-          },
           method: 'GET'
         }))
   end
