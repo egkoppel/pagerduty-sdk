@@ -991,7 +991,6 @@ class Pagerduty
   def get_schedule_users(options={})
     Users.new(curl({
       uri: "https://api.pagerduty.com/schedules/#{options[:id]}/",
-      params: options,
       method: 'GET'
     })[:schedule])
   end
