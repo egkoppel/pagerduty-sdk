@@ -993,7 +993,7 @@ class Pagerduty
       uri: "https://api.pagerduty.com/schedules/#{options[:id]}/",
       params: options,
       method: 'GET'
-    })).schedule.users
+    }).schedule)
   end
 
   # Create an override for a specific user covering the specified time range. If you create an override on top of an existing one, the last created override will have priority.
