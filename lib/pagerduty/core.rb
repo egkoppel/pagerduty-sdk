@@ -78,13 +78,14 @@ class Pagerduty
                  end
 
       print("response code #{response.code}, body: #{response.body}")
-      if options[:raw_response] == true
-        response
-      elsif response.body
-        JSON.parse(response.body)
-      else
-        { 'code' => response.code, 'message' => response.message }
-      end
+      #if options[:raw_response] == true
+      #  response
+      #elsif response.body
+      #  JSON.parse(response.body)
+      #else
+        #{ 'code' => response.code, 'message' => response.message }
+      #end
+      response.body
     end
 
     def curl_with_headers(options, headers)
