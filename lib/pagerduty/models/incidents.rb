@@ -3,6 +3,7 @@ class Pagerduty
     include Virtus.model
 
     attribute :incidents, Array[Pagerduty::Incidents::Incident]
+    attribute :more
 
     self.instance_eval do
       %w(triggered open acknowledged resolved).each do |status|
