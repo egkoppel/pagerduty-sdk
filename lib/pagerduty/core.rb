@@ -129,6 +129,7 @@ class Pagerduty
       end
 
       request.body = options[:body]
+      print("request body #{request.body}")
 
       options[:headers].each { |key,val| request.add_field(key,val) }
 
