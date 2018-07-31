@@ -12,7 +12,7 @@ class Pagerduty
       attribute :incident_key
       attribute :service, Service
       attribute :escalation_policy, EscalationPolicy
-      #attribute :assignments, Array[AssignedUsers]
+      attribute :assignments, Array[Assignment]
       #attribute :trigger_summary_data, TriggerSummaryData
       #attribute :trigger_details_html_url
       #attribute :trigger_type

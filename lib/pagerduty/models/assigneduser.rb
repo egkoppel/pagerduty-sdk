@@ -2,7 +2,7 @@ class AssignedUser
   include Virtus.model
 
   attribute :id
-  attribute :name
-  attribute :email
+  attribute :summary
+  attribute :self
   attribute :html_url
 end
