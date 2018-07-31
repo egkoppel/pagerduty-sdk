@@ -129,7 +129,7 @@ class Pagerduty
       end
 
       request.body = options[:body]
-      print("request body #{request.body}")
+      print("request data #{options[:data].to_json}")
 
       options[:headers].each { |key,val| request.add_field(key,val) }
 
@@ -141,13 +141,8 @@ class Pagerduty
                    http.request(request)
                  end
 
-      if options[:raw_response] == true
-        response
-      elsif response.body
-        JSON.parse(response.body)
-      else
-        { 'code' => response.code, 'message' => response.message }
-      end
+                 print("parsed response #{JSON.parse(response.body)}")
+                 JSON.parse(response.body)
     end
 
 

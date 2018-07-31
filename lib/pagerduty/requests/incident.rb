@@ -44,7 +44,7 @@ class Pagerduty
         print("resolving")
         curl_with_headers({
           uri: "https://api.pagerduty.com/incidents",
-          body: {
+          data: {
             incidents: [
               {
                 id:self.id,
@@ -52,7 +52,7 @@ class Pagerduty
                 type: 'incident_reference'
               }
             ]
-          }.to_json,
+          },
           method: 'PUT'
         },
         {
